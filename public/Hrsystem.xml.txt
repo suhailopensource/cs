@@ -1,0 +1,122 @@
+ using System;
+ using System.IO;
+ using System.Linq;
+ using System.Xml.Linq;
+class EmployeeRecords
+ {
+ static string xmlFilePath = "EmployeeRecords.xml";
+ static void Main()
+ {
+ while (true)
+ {
+ Console.WriteLine("\n--- Employee Records Management ---");
+ Console.WriteLine("1. Create XML File");
+ Console.WriteLine("2. Add New Employee");
+ Console.WriteLine("3. Update Employee Salary");
+ Console.WriteLine("4. Display All Employees");
+ Console.WriteLine("5. Exit");
+ Console.Write("Choose an option: ");
+ string choice = Console.ReadLine();
+ switch (choice)
+ {
+ case "1":
+ CreateXmlFile();
+ break;
+ case "2":
+ AddNewEmployee();
+                    break;
+                case "3":
+                    UpdateEmployeeSalary();
+                    break;
+                case "4":
+                    DisplayAllEmployees();
+                    break;
+                case "5":
+                    return;
+                default:
+                    Console.WriteLine("Invalid choice. Please try again.");
+                    break;
+            }
+        }
+    }
+    // Method to create an XML file
+    static void CreateXmlFile()
+    {
+        if (File.Exists(xmlFilePath))
+        {
+            Console.WriteLine("XML file already exists.");
+            return;
+        }
+XElement employees = new XElement("Employees");
+ employees.Save(xmlFilePath);
+ Console.WriteLine("XML file created successfully.");
+ }
+ // Method to add a new employee
+ static void AddNewEmployee()
+ {
+ if (!File.Exists(xmlFilePath))
+ {
+ }
+ Console.WriteLine("XML file does not exist. Please create it first.");
+ return;
+ Console.Write("Enter Employee ID: ");
+ string id = Console.ReadLine();
+ Console.Write("Enter Name: ");
+ string name = Console.ReadLine();
+ Console.Write("Enter Position: ");
+ string position = Console.ReadLine();
+ Console.Write("Enter Salary: ");
+ string salary = Console.ReadLine();
+ XElement employees = XElement.Load(xmlFilePath);
+ employees.Add(new XElement("Employee",
+new XElement("ID", id),
+ new XElement("Name", name),
+ new XElement("Position", position),
+ new XElement("Salary", salary)
+ ));
+ employees.Save(xmlFilePath);
+ Console.WriteLine("Employee added successfully.");
+ }
+ // Method to update an employee's salary
+ static void UpdateEmployeeSalary()
+ {
+ if (!File.Exists(xmlFilePath))
+ {
+ }
+ Console.WriteLine("XML file does not exist. Please create it first.");
+ return;
+ Console.Write("Enter Employee ID to update salary: ");
+ string id = Console.ReadLine();
+ XElement employees = XElement.Load(xmlFilePath);
+ // Find the employee by ID
+XElement employee = employees.Elements("Employee")
+ .FirstOrDefault(e => e.Element("ID")?.Value == id);
+ if (employee != null)
+ {
+ }
+ Console.Write("Enter new Salary: ");
+ string newSalary = Console.ReadLine();
+ // Update the salary
+ employee.Element("Salary").Value = newSalary;
+ employees.Save(xmlFilePath);
+ Console.WriteLine("Salary updated successfully.");
+ else
+ {
+ }
+ }
+ Console.WriteLine("Employee with the given ID not found.");
+ // Method to display all employees
+ static void DisplayAllEmployees()
+ {
+ if (!File.Exists(xmlFilePath))
+ {
+ Console.WriteLine("XML file does not exist. Please create it first.");
+}
+ return;
+ XElement employees = XElement.Load(xmlFilePath);
+ Console.WriteLine("\n--- Employee Details ---");
+ foreach (XElement employee in employees.Elements("Employee"))
+ {
+ }
+ }
+ }

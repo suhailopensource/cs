@@ -1,0 +1,32 @@
+using System;
+
+class Rectangle
+{
+    public double Length { get; set; }
+    public double Breadth { get; set; }
+
+    public double Area() => Length * Breadth;
+    public double Perimeter() => 2 * (Length + Breadth);
+}
+
+class Cuboid : Rectangle
+{
+    public double Height { get; set; }
+
+    public double Volume() => Length * Breadth * Height;
+}
+
+class Program
+{
+    static void Main()
+    {
+        Cuboid cuboid = new Cuboid
+        {
+            Length = 5,
+            Breadth = 3,
+            Height = 4
+        };
+
+        Console.WriteLine($"Area: {cuboid.Area()}, Perimeter: {cuboid.Perimeter()}, Volume: {cuboid.Volume()}");
+    }
+}

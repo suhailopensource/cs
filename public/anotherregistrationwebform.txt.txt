@@ -1,0 +1,146 @@
+ <%@ Page Language="C#" AutoEventWireup="true" CodeBehind="RegistrationForm.aspx.cs" 
+Inherits="SymposiumRegistration.RegistrationForm" %>
+ <!DOCTYPE html>
+ <html>
+ <head>
+ <title>National Level Symposium - Registration</title>
+ <style>
+ body {
+ font-family: Arial, sans-serif;
+ background-color: #f4f4f4;
+ margin: 0;
+ padding: 0;
+ }
+ .container {
+ width: 50%;
+ margin: 50px auto;
+padding: 20px;
+ background: # f;
+ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+ border-radius: 8px;
+ }
+ h1 {
+ text-align: center;
+ color: #333;
+ }
+ label {
+ font-weight: bold;
+ display: block;
+ margin-bottom: 5px;
+ }
+ input, select, textarea {
+ width: 100%;
+ padding: 10px;
+ margin-bottom: 20px;
+ border: 1px solid #ccc;
+ border-radius: 4px;
+ }
+ button {
+ background-color: #007BFF;
+ color: # f;
+ padding: 10px 20px;
+border: none;
+ border-radius: 4px;
+ cursor: pointer;
+ }
+ button:hover {
+ background-color: #0056b3;
+ }
+ .message {
+ text-align: center;
+ color: green;
+ }
+ </style>
+ </head>
+ <body>
+ <div class="container">
+ <h1>Symposium Registration</h1>
+ <asp:Label ID="lblMessage" runat="server" CssClass="message"></asp:Label>
+ <form id="registrationForm" runat="server">
+ <label for="txtName">Full Name</label>
+ <asp:TextBox ID="txtName" runat="server" placeholder="Enter your name">
+ </asp:TextBox>
+ <asp:RequiredFieldValidator ID="rfvName" runat="server" 
+ControlToValidate="txtName" ErrorMessage="Name is required!" ForeColor="Red">
+ </asp:RequiredFieldValidator>
+ <label for="txtEmail">Email</label>
+<asp:TextBox ID="txtEmail" runat="server" TextMode="Email" placeholder="Enter your 
+email"></asp:TextBox>
+ <asp:RequiredFieldValidator ID="rfvEmail" runat="server" ControlToValidate="txtEmail" 
+ErrorMessage="Email is required!" ForeColor="Red"></asp:RequiredFieldValidator>
+ <asp:RegularExpressionValidator ID="revEmail" runat="server" 
+ControlToValidate="txtEmail"
+ ErrorMessage="Invalid email format!" 
+ValidationExpression="^[^@\s]+@[^@\s]+\.[^@\s]+$" ForeColor="Red">
+ </asp:RegularExpressionValidator>
+ <label for="ddlEvent">Select Event</label>
+ <asp:DropDownList ID="ddlEvent" runat="server">
+ <asp:ListItem Text="Select an event" Value="" />
+ <asp:ListItem Text="Paper Presentation" Value="Paper Presentation" />
+ <asp:ListItem Text="Coding Contest" Value="Coding Contest" />
+ <asp:ListItem Text="Poster Design" Value="Poster Design" />
+ </asp:DropDownList>
+ <asp:RequiredFieldValidator ID="rfvEvent" runat="server" 
+ControlToValidate="ddlEvent" InitialValue=""
+ ErrorMessage="Please select an event!" ForeColor="Red">
+ </asp:RequiredFieldValidator>
+ <label for="txtContact">Contact Number</label>
+ <asp:TextBox ID="txtContact" runat="server" placeholder="Enter your contact 
+number"></asp:TextBox>
+ <asp:RequiredFieldValidator ID="rfvContact" runat="server" 
+ControlToValidate="txtContact" ErrorMessage="Contact number is required!" 
+ForeColor="Red"></asp:RequiredFieldValidator>
+ <asp:RegularExpressionValidator ID="revContact" runat="server" 
+ControlToValidate="txtContact"
+ ErrorMessage="Invalid contact number!" 
+ValidationExpression="^\d{10}$" ForeColor="Red"></asp:RegularExpressionValidator>
+ <label for="txtComments">Additional Comments</label>
+ <asp:TextBox ID="txtComments" runat="server" TextMode="MultiLine" Rows="4" 
+placeholder="Enter any comments (optional)"></asp:TextBox>
+ <button type="submit" runat="server" onserverclic
+ k="RegisterParticipant_Click">Register</button>
+ </form>
+ </div>
+ </body>
+ </html>
+ Code-Behind for RegistrationForm.aspx.cs
+ using System;
+ using System.IO;
+ namespace SymposiumRegistration
+ {
+ public partial class RegistrationForm : System.Web.UI.Page
+ {
+ protected void Page_Load(object sender, EventArgs e)
+ {
+ }
+// Event handler for registration button
+ protected void RegisterParticipant_Click(object sender, EventArgs e)
+ {
+ string name = txtName.Text;
+ string email = txtEmail.Text;
+ string eventSelected = ddlEvent.SelectedValue;
+ string contact = txtContact.Text;
+ string comments = txtComments.Text;
+ // Save the registration details (e.g., to a file or database)
+ string filePath = Server.MapPath("~/App_Data/Registrations.txt");
+ using (StreamWriter writer = new StreamWriter(filePath, true))
+ {
+ }
+ writer.WriteLine("Name: " + name);
+ writer.WriteLine("Email: " + email);
+ writer.WriteLine("Event: " + eventSelected);
+ writer.WriteLine("Contact: " + contact);
+ writer.WriteLine("Comments: " + comments);
+ writer.WriteLine("--------------------------------");
+ // Display success message
+ lblMessage.Text = "Registration successful!";
+ lblMessage.ForeColor = System.Drawing.Color.Green;
+// Clear the form inputs
+ txtName.Text = "";
+ txtEmail.Text = "";
+ ddlEvent.SelectedIndex = 0;
+ txtContact.Text = "";
+ txtComments.Text = "";
+ }
+ }
+ }

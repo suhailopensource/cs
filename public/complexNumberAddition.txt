@@ -1,0 +1,46 @@
+using System;
+
+class Complex
+{
+    public double Real { get; set; }
+    public double Imaginary { get; set; }
+
+    public Complex(double real, double imaginary)
+    {
+        Real = real;
+        Imaginary = imaginary;
+    }
+
+    public static Complex Add(Complex c1, Complex c2)
+    {
+        return new Complex(c1.Real + c2.Real, c1.Imaginary + c2.Imaginary);
+    }
+
+    public override string ToString()
+    {
+        return $"{Real} + {Imaginary}i";
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Enter real part of first complex number: ");
+        double real1 = double.Parse(Console.ReadLine());
+        Console.Write("Enter imaginary part of first complex number: ");
+        double imaginary1 = double.Parse(Console.ReadLine());
+
+        Console.Write("Enter real part of second complex number: ");
+        double real2 = double.Parse(Console.ReadLine());
+        Console.Write("Enter imaginary part of second complex number: ");
+        double imaginary2 = double.Parse(Console.ReadLine());
+
+        Complex c1 = new Complex(real1, imaginary1);
+        Complex c2 = new Complex(real2, imaginary2);
+
+        Complex result = Complex.Add(c1, c2);
+
+        Console.WriteLine($"Sum of complex numbers: {result}");
+    }
+}

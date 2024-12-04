@@ -1,0 +1,26 @@
+using System;
+using System.Xml.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        XElement employees = new XElement("Employees",
+            new XElement("Employee",
+                new XElement("ID", "101"),
+                new XElement("Name", "John Doe"),
+                new XElement("Department", "HR"),
+                new XElement("JobTitle", "Manager")
+            ),
+            new XElement("Employee",
+                new XElement("ID", "102"),
+                new XElement("Name", "Jane Smith"),
+                new XElement("Department", "IT"),
+                new XElement("JobTitle", "Developer")
+            )
+        );
+
+        employees.Save("Employees.xml");
+        Console.WriteLine("Employee data saved to Employees.xml");
+    }
+}

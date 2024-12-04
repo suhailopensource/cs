@@ -1,0 +1,28 @@
+using System;
+
+class Program
+{
+    class Concatenate
+    {
+        public string Value { get; set; }
+
+        public Concatenate(string value)
+        {
+            Value = value;
+        }
+
+        public static Concatenate operator +(Concatenate a, Concatenate b)
+        {
+            return new Concatenate(a.Value + b.Value);
+        }
+    }
+
+    static void Main()
+    {
+        Concatenate str1 = new Concatenate("CYBER");
+        Concatenate str2 = new Concatenate("SECURITY");
+
+        Concatenate result = str1 + str2;
+        Console.WriteLine($"Concatenated String: {result.Value}");
+    }
+}

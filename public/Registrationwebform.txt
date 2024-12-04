@@ -1,0 +1,45 @@
+
+Default.aspx
+<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="WebApplication.Default" %>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>National Level Symposium Registration</title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <h2>Registration Form</h2>
+            <label for="name">Name:</label>
+            <asp:TextBox ID="txtName" runat="server"></asp:TextBox><br /><br />
+            <label for="email">Email:</label>
+            <asp:TextBox ID="txtEmail" runat="server"></asp:TextBox><br /><br />
+            <label for="phone">Phone:</label>
+            <asp:TextBox ID="txtPhone" runat="server"></asp:TextBox><br /><br />
+            <asp:Button ID="btnSubmit" runat="server" Text="Submit" OnClick="btnSubmit_Click" />
+        </div>
+    </form>
+</body>
+</html>
+
+Default.aspx.cs
+
+using System;
+
+public partial class Default : System.Web.UI.Page
+{
+    protected void btnSubmit_Click(object sender, EventArgs e)
+    {
+        string name = txtName.Text;
+        string email = txtEmail.Text;
+        string phone = txtPhone.Text;
+
+        // You can save these details to a database or show confirmation
+        Response.Write($"Registration successful! Name: {name}, Email: {email}, Phone: {phone}");
+    }
+}
+
+
+
+
